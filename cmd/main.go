@@ -112,7 +112,6 @@ func removeWordsWithDuplicateLetters(words []string) []string {
 }
 
 /*
-
 package main
 
 import (
@@ -120,12 +119,13 @@ import (
 )
 
 func main() {
-	letter := "f"
-	boo := math(letter)
+	b := math("b")
+	o := math("o")
 	a := math("a")
-	b := math("j")
-	fmt.Printf("\n %b  %b   %b", a, b, a+b)
-	fmt.Printf("\n the letter %v is %b in binary", letter, boo)
+	t := math("t")
+	s := math("s")
+	boats := b + o + a + t + s
+	fmt.Printf("\n %b  ", boats)
 }
 
 func math(letter string) uint64 {
@@ -133,11 +133,7 @@ func math(letter string) uint64 {
 	a_rune := []rune("a")[0]
 	letter_rune := []rune(letter)[0]
 	var x int = 1 << (letter_rune - a_rune)
-	fmt.Println(x)
-
-	fmt.Printf("\n  %b ", x)
 	return uint64(x)
 }
-
 
 */
