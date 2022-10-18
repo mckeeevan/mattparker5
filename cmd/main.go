@@ -18,39 +18,29 @@ func main() {
 	fmt.Println(words[0])
 	fmt.Println(shortList[0])
 	fmt.Println(len(shortList))
+	wordPairs := convertToBinary(shortList)
+	wordPairs = randomizeSlice(wordPairs)
+	for i := 0; i < 10; i++ {
+		fmt.Printf("\n %v is %26.26b in binary", wordPairs[i].word, wordPairs[i].binary)
+	}
+
 	duration := time.Since(start)
-	letterToBinary(getLetters("a")[0])
-	letterToBinary(getLetters("b")[0])
-	letterToBinary(getLetters("c")[0])
 
 	// Formatted string, such as "2h3m0.5s" or "4.503μs"
 	fmt.Println(duration)
 }
 
-func convertToBinary(words []string) []uint32 {
-	/*
-		for _, word := range words {
-			runes := getLetters(word)
-		}
-	*/
-	return []uint32{}
+func randomizeSlice(a []wordPair) []wordPair {
+	rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
+	return a
 }
 
-func letterToBinary(letter rune) uint32 {
-	var binary uint32 = 3202
-	switch letter {
-
-	case 97:
-		fmt.Println("100000000000000000000000000000000000")
-	case 98:
-		fmt.Println("010000000000000000000000000000000000")
-	case 99:
-		fmt.Println("001000000000000000000000000000000000")
-	default:
-		fmt.Println("butts")
+func convertToBinary(words []string) []wordPair {
+	wordPairs := []wordPair{}
+	for _, word := range words {
+		wordPairs = append(wordPairs, wordPair{word: word, binary: encode5(word)})
 	}
-
-	return binary
+	return wordPairs
 }
 
 func readInWords(filename string) []string {
@@ -111,29 +101,11 @@ func removeWordsWithDuplicateLetters(words []string) []string {
 	return wordList
 }
 
-/*
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	b := math("b")
-	o := math("o")
-	a := math("a")
-	t := math("t")
-	s := math("s")
-	boats := b + o + a + t + s
-	fmt.Printf("\n %b  ", boats)
+func encode5(s string) uint32 {
+	return 1<<(s[0]-'a') + 1<<(s[1]-'a') + 1<<(s[2]-'a') + 1<<(s[3]-'a') + 1<<(s[4]-'a')
 }
 
-func math(letter string) uint64 {
-
-	a_rune := []rune("a")[0]
-	letter_rune := []rune(letter)[0]
-	var x int = 1 << (letter_rune - a_rune)
-	return uint64(x)
+type wordPair struct {
+	word   string
+	binary uint32
 }
-
-*/
